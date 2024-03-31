@@ -8,10 +8,28 @@
 import Foundation
 
 class CardViewModel : ObservableObject {
-    @Published private(set) var CardsData = [CardModel]()
+    @Published private(set) var cardsData = [CardModel]()
     private let url = "https://api.magicthegathering.io/v1/cards"
-}
-
-func fetchData() {
     
+    func fetchData() {
+        if let url = URL(string: url) {
+            URLSession
+                .shared
+                .dataTask(with: url) { (cards, reponse, error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        if let cards = cards {
+                            do {
+                                let results = try JSONDecoder().decode(CardResults.self, from: cards)
+                                self.cardsData = results.cards
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+                }.resume()
+        }
+    }
 }

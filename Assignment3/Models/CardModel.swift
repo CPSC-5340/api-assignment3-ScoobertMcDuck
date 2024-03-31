@@ -6,11 +6,12 @@
 //
 
 import Foundation
-struct CardResults {
+struct CardResults : Codable {
     let cards : [CardModel]
 }
 
-struct CardModel {
+struct CardModel : Codable, Identifiable {
+    let id: UUID = UUID()
     let name : String
     let manaCost : String
     let text : String

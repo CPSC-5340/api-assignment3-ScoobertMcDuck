@@ -8,14 +8,22 @@
 import SwiftUI
 
 struct Cards: View {
+    
+    @ObservedObject var cardsvm = CardViewModel()
+    
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink {
-                    CardDetail()
-                } label: {
-                    Text("Card")
+                ForEach(cardsvm.cardsData) { card in
+                    NavigationLink {
+                        CardDetail()
+                    } label: {
+                        Text(card.name)
+                    }
                 }
+            }
+            .onAppear {
+                cardsvm.fetchData()
             }
             .listStyle(.grouped)
             .navigationTitle("Magic the Gathering Cards")
