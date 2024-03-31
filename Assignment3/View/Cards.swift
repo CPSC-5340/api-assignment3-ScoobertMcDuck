@@ -18,7 +18,7 @@ struct Cards: View {
                     NavigationLink {
                         CardDetail()
                     } label: {
-                        Text(card.name)
+                        Text("card.name")
                     }
                 }
             }
