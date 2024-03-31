@@ -7,12 +7,13 @@
 
 import Foundation
 
-class CardViewModel : ObservableObject {
+
+ class CardViewModel : ObservableObject {
+    
     @Published private(set) var cardsData = [CardModel]()
     private let url = "https://api.magicthegathering.io/v1/cards"
     
-    @MainActor
-    func fetchData() {
+     func fetchData() {
         if let url = URL(string: url) {
             URLSession
                 .shared
@@ -24,7 +25,9 @@ class CardViewModel : ObservableObject {
                         if let cards = cards {
                             do {
                                 let results = try JSONDecoder().decode(CardResults.self, from: cards)
-                                self.cardsData = results.cards
+                                DispatchQueue.main.async {
+                                    self.cardsData = results.cards
+                                }
                             } catch {
                                 print(error)
                             }
