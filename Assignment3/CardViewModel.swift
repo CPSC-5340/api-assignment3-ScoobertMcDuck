@@ -11,6 +11,7 @@ class CardViewModel : ObservableObject {
     @Published private(set) var cardsData = [CardModel]()
     private let url = "https://api.magicthegathering.io/v1/cards"
     
+    @MainActor
     func fetchData() {
         if let url = URL(string: url) {
             URLSession

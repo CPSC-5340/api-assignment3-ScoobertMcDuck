@@ -16,17 +16,18 @@ struct Cards: View {
             List {
                 ForEach(cardsvm.cardsData) { card in
                     NavigationLink {
-                        CardDetail()
+                        CardDetail(card: card)
                     } label: {
-                        Text("card.name")
+                        Text(card.name!)
                     }
                 }
             }
-            .onAppear {
-                cardsvm.fetchData()
-            }
+    
             .listStyle(.grouped)
             .navigationTitle("Magic the Gathering Cards")
+        }
+        .onAppear {
+            cardsvm.fetchData()
         }
     }
 }

@@ -9,37 +9,36 @@ import SwiftUI
 
 struct CardDetail: View {
     
+    var card: CardModel
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
-                Text("Card Name")
+            Text(card.name ?? "?")
                     .font(.system(size: 30))
                     .padding(.horizontal)
                 
-                AsyncImage(url: URL(string: "https://example.com/icon.png")) { image in
+            AsyncImage(url: URL(string: card.imageUrl ?? "https://example.com/icon.png")) { image in
                     image.resizable()
                         .scaledToFit()
                         .cornerRadius(10)
-                        .frame(width: 215, height: 300)
+                        
                 } placeholder: {
                     ProgressView()
                 }
+                .frame(width: 215, height: 300)
                 
                 
-                Text("ManaCost")
+            Text(card.manaCost ?? "?")
                     .font(.system(size: 20))
                     .padding(.horizontal)
                 
-                Text("Power/Toughness")
+            Text((card.power ?? "?") + " / " + (card.toughness ?? "?") )
                     .font(.system(size: 20))
                     .padding(.horizontal)
                 
-                Text("Text:")
+            Text(card.text ?? "?")
                     .font(.system(size: 20))
                     .padding(.horizontal)
         }
     }
 }
 
-#Preview {
-    CardDetail()
-}
